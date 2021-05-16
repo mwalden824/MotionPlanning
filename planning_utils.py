@@ -158,3 +158,29 @@ def a_star(grid, h, start, goal):
 def heuristic(position, goal_position):
     return np.linalg.norm(np.array(position) - np.array(goal_position))
 
+def point(p):
+    return np.array([p[0], p[1], 1.]).reshape(1, -1)
+
+def collinearity_check(p1, p2, p3, epsilon=1e-6):   
+    m = np.concatenate((p1, p2, p3), 0)
+    det = np.linalg.det(m)
+    return abs(det) < epsilon
+
+def prune_path(path, epsilon=2):
+    if path is not None:
+        pruned_path = [p for p in path]
+        i = 0
+        while i < (len(pruned_path)-2):
+            p1 = pruned_path[i]
+            p2 = pruned_path[i+1]
+            p3 = pruned_path[i+2]
+            if collinearity_check(point(p1), point(p2), point(p3), epsilon):
+                pruned_path.remove(pruned_path[i+1])
+            else:
+                i += 1
+    else:
+        pruned_path = path
+        
+    return pruned_path
+
+
