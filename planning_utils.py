@@ -57,7 +57,7 @@ class Action(Enum):
     SOUTH = (1, 0, 1)
 
     NORTHWEST = (-1, -1, np.sqrt(2))
-    NOERTHEAST = (-1, 1, np.sqrt(2))
+    NORTHEAST = (-1, 1, np.sqrt(2))
     SOUTHWEST = (1, -1, np.sqrt(2))
     SOUTHEAST = (1, 1, np.sqrt(2))
 
